@@ -2,7 +2,17 @@
 
 ##### A simple to use Worley noise generator written fully in JavaScript. The module is both embeddable and customizable. The module works both in the browser and node. The module can be instanced via CommonJS, AMD and `script` tags.  Module written and implemented with asynchronous execution in mind. 
 
+### Quick Links.
 
+- [Installation](https://github.com/sokorototo/worley-noise#installation)
+  - [NPM.](https://github.com/sokorototo/worley-noise#npm)
+  - [Embedded.](https://github.com/sokorototo/worley-noise#affirm-installation#embedded)
+  - [Validation.](https://github.com/sokorototo/worley-noise#validation)
+- [Usage](https://github.com/sokorototo/worley-noise#usage)
+  - [Basic.](https://github.com/sokorototo/worley-noise#basic)
+  - [Advanced.](https://github.com/sokorototo/worley-noise#advanced)
+- [Future Updates.](https://github.com/sokorototo/worley-noise#future-updates)
+- [Extras.](https://github.com/sokorototo/worley-noise#extras)
 
 ### **Installation**
 
@@ -14,7 +24,7 @@
 npm install worleyjs
 ```
 
-##### Direct Include.
+##### Embedded.
 
 Include the file `worley.min.js`in your project directory. Then:
 
@@ -30,11 +40,11 @@ Include the file `worley.min.js`in your project directory. Then:
   const Worley = require("./path/to/worley.min.js")
   ```
 
-##### Affirm installation.
+##### Validate installation.
 
-To affirm installation. Run:
+To validate installation. Run:
 
-```
+```bash
 npm run test
 ```
 
