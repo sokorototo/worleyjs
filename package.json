@@ -1,0 +1,29 @@
+{
+  "name": "worleyjs",
+  "version": "1.0.0",
+  "description": "An embedabble and simple Worley Noise written in Javascript. CPU-Asynchronous",
+  "main": "build/worley.min.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "node build/worley.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sokorototo/worley-noise.git"
+  },
+  "keywords": [
+    "worley-noise",
+    "worley",
+    "voronoi",
+    "cell",
+    "noise"
+  ],
+  "author": "Newton Toto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sokorototo/worley-noise/issues"
+  },
+  "homepage": "https://github.com/sokorototo/worley-noise#readme"
+}
