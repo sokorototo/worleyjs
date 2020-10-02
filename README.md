@@ -6,8 +6,8 @@
 
 - [Installation](https://github.com/sokorototo/worley-noise#installation)
   - [NPM.](https://github.com/sokorototo/worley-noise#npm)
-  - [Embedded.](https://github.com/sokorototo/worley-noise#affirm-installation#embedded)
-  - [Validation.](https://github.com/sokorototo/worley-noise#validation)
+  - [Embedded.](https://github.com/sokorototo/worley-noise#embedded)
+  - [Validation.](https://github.com/sokorototo/worley-noise#validate-installation)
 - [Usage](https://github.com/sokorototo/worley-noise#usage)
   - [Basic.](https://github.com/sokorototo/worley-noise#basic)
   - [Advanced.](https://github.com/sokorototo/worley-noise#advanced)
