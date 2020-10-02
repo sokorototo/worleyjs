@@ -1,4 +1,4 @@
-# Worley Noise Generator
+# Worley Noise Generator.
 
 ##### A simple to use Worley noise generator written fully in JavaScript. The module is both embeddable and customizable. The module works both in the browser and node. The module can be instanced via CommonJS, AMD and `script` tags.  Module written and implemented with asynchronous execution in mind. 
 
