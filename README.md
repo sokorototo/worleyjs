@@ -18,7 +18,7 @@
 
 ##### NPM.
 
-​	To install with NPM simply run: 
+​	To install with NPM run:
 
 ```
 npm install worleyjs
