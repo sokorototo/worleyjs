@@ -58,7 +58,7 @@ The module exposes a `Worley`  class. The `Worley` instance contains all the met
 
 - The `crests` property defines how many `"hills"` there are in the texture. 
 - The `threshold` argument the distance a pixels should consider to a nearby crest. 
-  - <img src="https://github.com/sokorototo/worley-noise/blob/master/media/moving.gif?raw=true" style="zoom: 50%;" />  # Threshold as it changes from 120 to 30
+  - <img src="https://github.com/sokorototo/worley-noise/blob/master/media/moving.gif?raw=true" style="zoom: 20%;" />  # Threshold as it changes from 120 to 30
 - The `seed` argument is an array of 4 numbers which seed the Texture.
 
 ```javascript
