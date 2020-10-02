@@ -48,7 +48,7 @@ The module exposes a `Worley`  class. The `Worley` instance contains all the met
 
 - The `crests` property defines how many `"hills"` there are in the texture. 
 - The `threshold` argument the distance a pixels should consider to a nearby crest. 
-  - <img src="Link:\media\moving.gif" style="zoom: 50%;" />  # Threshold as it changes from 120 to 30
+  - <img src="https://github.com/sokorototo/worley-noise/blob/master/media/moving.gif?raw=true" style="zoom: 50%;" />  # Threshold as it changes from 120 to 30
 - The `seed` argument is an array of 4 numbers which seed the Texture.
 
 ```javascript
@@ -71,7 +71,7 @@ noise.Texture.ImageData().then((imgData) => {
 
 That produces the following texture.
 
-​	<img src="Link:\examples\monochrome.png" style="zoom: 80%;" /> 
+​	<img src="https://github.com/sokorototo/worley-noise/blob/master/media/monochrome.png?raw=true" style="zoom: 80%;" /> # A basic 256x256 worley noise texture.
 
 #### Advanced.
 
@@ -82,7 +82,7 @@ That produces the following texture.
   { color: [[4, 131, 228], [4, 228, 49]]}
   ```
 
-  <img src="Link:\examples\colors.png" style="zoom: 200%;" /> # Custom Colors
+  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/colors.png?raw=true" style="zoom: 200%;" /> # Custom Colors
 
 - **Transparency:** To include the transparency to your texture .
 
@@ -91,7 +91,7 @@ That produces the following texture.
   { alpha: true}
   ```
 
-  <img src="Link:\examples\alpha.png" style="zoom:80%;" /> # Alpha On
+  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/alpha.png?raw=true" style="zoom:80%;" /> # Alpha On
 
 - **Interpolation:** You can turn off interpolation for a little **(mostly insignificant)** speed boost.
 
@@ -100,7 +100,7 @@ That produces the following texture.
   { interpolate: false }
   ```
 
-  <img src="Link:\examples\interpolation_off.png" style="zoom:80%;" /> # Interpolation Off
+  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/interpolation_off.png?raw=true" style="zoom:80%;" /> # Interpolation Off
 
 - **Pixel:** To get the value of a single pixel. Given the x and y co-ordinates.
 
