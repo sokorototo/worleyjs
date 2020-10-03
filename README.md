@@ -18,7 +18,7 @@
 
 ##### NPM.
 
-​	To install with NPM simply run: 
+​	To install with NPM run:
 
 ```
 npm install worleyjs
@@ -153,6 +153,7 @@ That produces the following texture.
 - [x] Custom colour support.
 - [x] NodeJS friendly.
 - [ ] WebGPU compute support for Parallel execution.
+- [ ] Custom interpolation functions.
 - [ ] 3D slicing
 - [ ] Variable Transparency.
 - [ ] Per Crest unique influence.
