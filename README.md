@@ -1,4 +1,4 @@
-# Worley Noise Generator
+# Worley Noise Generator.
 
 ##### A simple to use Worley noise generator written fully in JavaScript. The module is both embeddable and customizable. The module works both in the browser,  web workers and node. The module can be instanced via CommonJS, AMD or `script` tags.  Module written and implemented with ES6 promises in mind.  This module has **ZER0** dependencies whatsoever.
 
@@ -191,3 +191,5 @@ That produces the following texture.
 - Feedback would be much appreciated.
 - Bug reports and fixes.
 - All code is fully  accessible and is FREE for all use.
+- Created a demo Web App, located in extras/web-worker
+- This is my first github project, leave a star or something,, tell me what I have done wrong and what I have done right.
