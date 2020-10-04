@@ -56,10 +56,10 @@ The module exposes a `Worley`  class. The `Worley` instance contains all the met
 
 ##### Basic.
 
-- The `crests` property defines how many `"hills"` there are in the texture. 
-- The `threshold` argument the distance a pixels should consider to a nearby crest. 
+- The `crests` property defines how many `"spots"` there are in the texture.
+- The `threshold` argument dictates how far the slope of a crest extends.
   - <img src="https://github.com/sokorototo/worley-noise/blob/master/media/moving.gif?raw=true" style="zoom: 50%;" />  # Threshold as it changes from 120 to 30
-- The `seed` argument is an array of 4 numbers which seed the Texture.
+- The `seed` argument is an array of 4 numbers which are seed to the RNG of the Texture.
 
 ```javascript
 let noise = new Worley({
@@ -96,7 +96,7 @@ That produces the following texture.
 
   <img src="https://github.com/sokorototo/worley-noise/blob/master/media/colors.png?raw=true" style="zoom: 80%;" /> # Custom Colours.
 
-- **Transparency:** To include the transparency to your texture .
+- **Transparency:** To include the transparency to your texture. For more detailed transparency, pass a number to the `alpha` property where **0** is for no alpha influence and 1 is for full alpha influence. A number above **1** will overshoot the alpha and a value of **255** turns the texture fully transparent.
 
   ```javascript
   // Transparency
@@ -179,6 +179,7 @@ That produces the following texture.
 - [ ] Variable Transparency.
 - [ ] Per Crest unique influence.
 - [ ] Caching and Seed sorting bug fixes.
+- [ ] Add some form of jitter or distortion.
 
 
 
