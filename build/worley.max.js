@@ -15,7 +15,7 @@
 
             //Color parameters
             this.colors = setup.colors;
-            this.alpha = setup.alpha;
+            this.alpha = setup.alpha? setup.alpha + 0.00001: false;
 
             //Seed parameters
             while(setup.seed.length < 4) setup.seed.push(Math.floor(10 * Math.random() * (Math.random() * 2456665234)));
@@ -24,14 +24,13 @@
             //This Texture object property abstracts texture manipulation
             this.Texture = {
                 parent: this,
-                async generate(callback){
-                    let data = new Uint8Array(this.parent.width * this.parent.height);
+                async generate(){
+                    let data = new Uint8ClampedArray(this.parent.width * this.parent.height);
                     for(let x = 0; x <= this.parent.width; x ++){
                         for(let y = 0; y <= this.parent.height; y++){
                             data[y * this.parent.width + x] = await this.parent.pixel(x, y)
                         }
                     };
-                    if(callback !== undefined) callback(data);
                     this.data = data;
                     return data
                 },
@@ -45,7 +44,7 @@
                             [Symbol.toStringTag]: "ImageData",
                             width: this.parent.width,
                             height: this.parent.height,
-                            data: new Uint8Array(this.parent.width * this.parent.height * 4)
+                            data: new Uint8ClampedArray(this.parent.width * this.parent.height * 4)
                         };
                     } else {
                         imgData = new ImageData(this.parent.width, this.parent.height)
@@ -54,12 +53,9 @@
                         let scale = this.data[Math.floor(i / 4)] / 255;
                         //Alpha
                         if((i + 1) % 4 ==0){
-                            if (this.parent.alpha) {
-                                imgData.data[i] = 255 - (scale * 255)
-                            } else {
-                                imgData.data[i] = 255
-                            };
-                            continue
+                            // Number(false) returns 0
+                            imgData.data[i] = 255 - (scale * 255 * Number(alpha));
+                            continue;
                         };
 
                         //Monochrome
@@ -94,19 +90,32 @@
         }
         async nearestCrest(x = 0, y = 0, hierachy = 0){
             if(this.crests.length === 0) return [Infinity, Infinity];
-            return this.crests.slice(0).map((crest) => {return {crest, distance: Worley.magnitude([x - crest[0], y - crest[1]])}}).sort((a, b) => {return a.distance - b.distance})[hierachy].crest;
+
+            // Manual forloops are faster than higher order functions but array.sort is always an exception
+            let crests = this.crests.slice(0);
+            for (let i = 0; i < crests.length; i++) {
+                let crest = crests[i];
+                crests[i] = {crest, distance: Worley.magnitude([x - crest[0], y - crest[1]])}
+            };
+            // The function is named for debugging reasons
+            let sortfn = (a, b) => {return a.distance - b.distance};
+            return crests.sort(sortfn)[hierachy].crest;
         }
         async pixel(x, y, interpolate = this.interpolate, hierachy = this.hierachy){
             let nearestCrest = await this.nearestCrest(x, y, hierachy);
-            let distance = Worley.magnitude([x - nearestCrest[0], y - nearestCrest[1]])
+            let distance = Worley.magnitude([x - nearestCrest[0], y - nearestCrest[1]]);
             return (interpolate)? this.interpolant(0, 255, Worley.clamp(distance / this.threshold, 0, 1)): 255 * Worley.clamp(distance / this.threshold, 0, 1)
-        }
+        };
 
         // "Global" module methods
-        static clamp(val, min, max, teleport = false){
-            if (val < min) teleport ? val = max : val = min;
-            if (val > max) teleport ? val = min : val = max;
-            return val
+        static clamp(val, min, max){
+            if(val > max){
+                return max
+            } else if (min > val){
+                return min
+            } else {
+                return val
+            }
         };
         static interpolate(min, max, x = 0.5){
             x = (Math.sin((Math.PI * x) - (Math.PI / 2)) + 1) / 2;
@@ -121,31 +130,31 @@
             let crests = Array.from({length: setup.crests}, () => [Math.round(rand() * setup.width), Math.round(rand() * setup.height)]);
             return crests;
         };
-        static magnitude([x, y]){
-            return Math.sqrt((x**2 + y**2))
-        };  
+        static magnitude(vector){
+            return Math.sqrt((vector[0]**2 + vector[1]**2))
+        };
         static default(){
             return {
-                threshold: 55,
-                hierachy: 0,
                 width: 100,
                 height: 100,
-                colors: false,
-                alpha: false,
                 crests: 20,
+                threshold: 55,
+                hierachy: 0,
                 interpolate: true,
                 interpolant: Worley.interpolate,
+                colors: false,
+                alpha: false,
                 seed: [
                     Math.floor(Math.random() * (Math.random() * 2456665234)) * 10,
                     Math.floor(Math.random() * (Math.random() * 6242145234)) * 10,
                     Math.floor(Math.random() * (Math.random() * 9253524321)) * 10,
                     Math.floor(Math.random() * (Math.random() * 4364645634)) * 10
                 ],
-                prerun: 10
+                prerun: 2
             }
         };
         static rand (a, b, c, d) {
-            //Pseudo-Random "Seedable" Number Generator
+            //Pseudo-Random "Seedable" Number Generator: SCF32 Algorithm used
             return function() {
                 a |= 0; b |= 0; c |= 0; d |= 0; 
                 var t = (a + b | 0) + d | 0;
