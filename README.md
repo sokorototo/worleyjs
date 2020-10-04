@@ -190,3 +190,5 @@ That produces the following texture.
 - Feedback would be much appreciated.
 - Bug reports and fixes.
 - All code is fully  accessible and is FREE for all use.
+- Created a demo Web App, located in extras/web-worker
+- This is my first github project, leave a star or something,, tell me what I have done wrong and what I have done right.
