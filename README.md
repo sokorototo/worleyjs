@@ -1,6 +1,6 @@
 # Worley Noise Generator
 
-##### A simple to use Worley noise generator written fully in JavaScript. The module is both embeddable and customizable. The module works both in the browser and node. The module can be instanced via CommonJS, AMD and `script` tags.  Module written and implemented with asynchronous execution in mind. 
+##### A simple to use Worley noise generator written fully in JavaScript. The module is both embeddable and customizable. The module works both in the browser,  web workers and node. The module can be instanced via CommonJS, AMD or `script` tags.  Module written and implemented with ES6 promises in mind.  This module has **ZER0** dependencies whatsoever.
 
 ### Quick Links.
 
@@ -54,7 +54,7 @@ npm run test
 
 The module exposes a `Worley`  class. The `Worley` instance contains all the methods and properties needed for the generation of Worley noise.
 
-##### Basic
+##### Basic.
 
 - The `crests` property defines how many `"hills"` there are in the texture. 
 - The `threshold` argument the distance a pixels should consider to a nearby crest. 
@@ -81,7 +81,9 @@ noise.Texture.ImageData().then((imgData) => {
 
 That produces the following texture.
 
-​	<img src="https://github.com/sokorototo/worley-noise/blob/master/media/monochrome.png?raw=true" style="zoom: 80%;" /> # A basic 256x256 worley noise texture.
+​	<img src="https://github.com/sokorototo/worley-noise/blob/master/media/monochrome.png?raw=true" style="zoom: 80%;" /> # A basic 256x256 monochrome Worley noise texture.
+
+
 
 #### Advanced.
 
@@ -92,7 +94,7 @@ That produces the following texture.
   { color: [[4, 131, 228], [4, 228, 49]]}
   ```
 
-  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/colors.png?raw=true" style="zoom: 200%;" /> # Custom Colors
+  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/colors.png?raw=true" style="zoom: 80%;" /> # Custom Colours.
 
 - **Transparency:** To include the transparency to your texture .
 
@@ -101,21 +103,40 @@ That produces the following texture.
   { alpha: true}
   ```
 
-  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/alpha.png?raw=true" style="zoom:80%;" /> # Alpha On
+  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/alpha.png?raw=true" style="zoom:80%;" /> # Alpha On.
 
-- **Interpolation:** You can turn off interpolation for a little **(mostly insignificant)** speed boost.
+- **Interpolation:** You can *"turn off"* interpolation for a little **(mostly insignificant)** speed boost. This doesn't actually turn off interpolation but rather uses bilinear interpolation ( simple distance from a point ) to calculate values. 😁. It also disables custom interpolation functions.
 
   ```javascript
   // Toggle interpolation
   { interpolate: false }
   ```
 
-  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/interpolation_off.png?raw=true" style="zoom:80%;" /> # Interpolation Off
+  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/interpolation_off.png?raw=true" style="zoom:80%;" /> # Interpolation Off, Compare with above texture.
 
-- **Pixel:** To get the value of a single pixel. Given the x and y co-ordinates.
+- **Custom Interpolation Functions:**  To pass a custom interpolation function, simply pass a compatible function to the `interpolant` property in the config object of the noise instance. The `interpolate`  property needs to be set to true for this to work. The `interpolant` function takes three numbers. A lower value, an upper value and a *slider* value( which ranges from 1 to 0 ). With this function crazy effects can be achieved like belts, spots and cat fur patterns. *Expected* behaviour is that the slider defines a point on an interpolation curve, thus the closer the slider is to `0` the closer it is to the lower end of the graph, what the function does is simply **define the shape of the curve**. This is *expected* behaviour, you can obviously do whatever you want in the interpolant value, as long as it abides to the following rules:
+
+  - Always returns a number.
+  - Returned values are always clamped between the lower and upper values.
 
   ```javascript
-  // Value of a pixel
+  {
+      interpolant: function(lower, upper, slider){
+          // Simple cut-off interpolant
+          if( slider >= 0.2 ){
+              return upper
+          } else {
+              return lower
+          }
+      }
+  }
+  ```
+
+  ![](https://github.com/sokorototo/worley-noise/blob/master/media/custom_interpolant.png?raw=true) # A simple cut-off interpolant function.
+
+- **Value Of A Given Pixel:** To get the value of a single pixel. Given the x and y co-ordinates:
+
+  ```javascript
   // noise.pixel(x: in pixels, y: in pixels, ?interpolate, ?hierachy: which crest to consider first) 
   // returns a promise which resolves to a number between 0 and 255
   noise.pixel(50, 50, true, 2).then((value) => {
@@ -125,23 +146,23 @@ That produces the following texture.
   })
   ```
 
-- **Raw Data:** To access the raw values of the noise and not the RGBA texture.
+- **Raw Data:** To access the raw noise values and not the RGBA texture.
 
   ```javascript
-  // Raw single channel data. Stored as a Uint8Array
+  // Raw single channel noise data. Stored as a Uint8Array
   noise.Texture.generate().then((raw) => {
-      // Do something
+      // Do something with the data
       
       console.log(raw);// Uint8Array[100,24, 53,24....n]
   })
   ```
 
-- **Nearby Crest**: If you want to find the closest crests given a set of co-ordinates.
+- **Nearby Crest**: If you want to find the closest "crest" given a set of co-ordinates.
 
   ```javascript
   // X, Y, ?hierachy
   noise.nearestCrest(x, y, 0).then((crest) => {
-      // Outputs an array containing pixel co-ordinates
+      // Outputs an array containing 2d co-ordinates in pixels
       console.log(crest); // -> [45, 56]
   })
   ```
@@ -152,8 +173,8 @@ That produces the following texture.
 
 - [x] Custom colour support.
 - [x] NodeJS friendly.
+- [x] Custom interpolation functions.
 - [ ] WebGPU compute support for Parallel execution.
-- [ ] Custom interpolation functions.
 - [ ] 3D slicing
 - [ ] Variable Transparency.
 - [ ] Per Crest unique influence.

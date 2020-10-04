@@ -16,7 +16,7 @@ try{
 
     // Noise.pixel test
     then = Date.now();
-    Noise.pixel(Noise.width / 2, Noise.height / 2, 1, true).then((output) => {
+    Noise.pixel(512, 512, true, 1).then((output) => {
         let now = Date.now();
         console.log(`[OUTPUT]: Noise.pixel => ${output}`);
         console.log(`[DEBUG]: Noise.pixel took ${(now - then) / 1000}s to execute`);
@@ -25,9 +25,9 @@ try{
 
     // Noise.nearestCrest test
     then = Date.now();
-    Noise.nearestCrest(Noise.width / 2, Noise.height / 2, 3).then((output) => {
+    Noise.nearestCrest(512, 512, 0).then((output) => {
         let now = Date.now();
-        console.log(`[OUTPUT]: Noise.nearestCrest => ${typeof output}`);
+        console.log(`[OUTPUT]: Noise.nearestCrest => ${output}`);
         console.log(`[DEBUG]: Noise.nearestCrest took ${(now - then) / 1000}s to execute`);
         console.log(`[DEBUG]: Noise.nearestCrest -> TEST PASSED\n`);
 

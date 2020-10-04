@@ -11,6 +11,7 @@
             this.threshold = setup.threshold;
             this.hierachy = setup.hierachy;
             this.interpolate = setup.interpolate;
+            this.interpolant = setup.interpolant;
 
             //Color parameters
             this.colors = setup.colors;
@@ -93,12 +94,12 @@
         }
         async nearestCrest(x = 0, y = 0, hierachy = 0){
             if(this.crests.length === 0) return [Infinity, Infinity];
-            return this.crests.slice(0).map((crest) => {return {crest, distance: Worley.magnitude([x - crest[0], y - crest[1]])}}).sort((a, b) => a.distance - b.distance)[hierachy].crest;
+            return this.crests.slice(0).map((crest) => {return {crest, distance: Worley.magnitude([x - crest[0], y - crest[1]])}}).sort((a, b) => {return a.distance - b.distance})[hierachy].crest;
         }
         async pixel(x, y, interpolate = this.interpolate, hierachy = this.hierachy){
             let nearestCrest = await this.nearestCrest(x, y, hierachy);
             let distance = Worley.magnitude([x - nearestCrest[0], y - nearestCrest[1]])
-            return (interpolate)? Worley.interpolate(0, 255, Worley.clamp(distance / this.threshold, 0, 1)): 255 * Worley.clamp(distance / this.threshold, 0, 1)
+            return (interpolate)? this.interpolant(0, 255, Worley.clamp(distance / this.threshold, 0, 1)): 255 * Worley.clamp(distance / this.threshold, 0, 1)
         }
 
         // "Global" module methods
@@ -133,6 +134,7 @@
                 alpha: false,
                 crests: 20,
                 interpolate: true,
+                interpolant: Worley.interpolate,
                 seed: [
                     Math.floor(Math.random() * (Math.random() * 2456665234)) * 10,
                     Math.floor(Math.random() * (Math.random() * 6242145234)) * 10,
