@@ -1,3 +1,6 @@
 /media
 /extras
 /.gitignore
+/.vscode
+/build/worley.max.js
+/build/worley.max.mjs

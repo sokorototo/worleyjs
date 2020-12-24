@@ -65,39 +65,21 @@
     }
 </style>
 <div id="container">
-    <canvas id=canvas width="256" height="256" style="width: 256px; height: 256px; border: 2px solid black; background-color: aquamarine;" title="OUTPUT"></canvas>
+    <canvas id=canvas width="256" height="256" style="width: 256px; height: 256px; border: 2px solid black; background-color: aquamarine;" title="width: 256, height: 256"></canvas>
     <div id="controls">
         <div class="control">
-            <input name="threshold" type="number" placeholder="Threshold">
+            <input name="threshold" title="threshold" type="number" placeholder="Threshold">
         </div>
         <div class="control">
-            <input name="crests" type="number" placeholder="Crests">
+            <input name="crests" title="crests" type="number" placeholder="Crests">
         </div>
         <div class="control">
-            <input name="hierachy" type="number" placeholder="Hierachy">
+            <input name="hierachy" title="hierachy" type="number" placeholder="Hierachy">
         </div>
         <div class="control">
             <button id="trigger">GENERATE!</BUtton>
         </div>
     </div>
 </div>
-<script defer>
-    let canvas = document.getElementById("canvas")
-    , ctx = canvas.getContext("2d")
-    , options = {width: 256,height: 256,seed: [12345, 45678, 67890, 242521]}
-    , worker = new Worker("worker.js", {name: "worley_gen"})
-    , button = document.getElementById("trigger")
-    , inputs = Array.from(document.querySelectorAll("div.control > input"));
-    button.onclick = () => {
-        let setup = {};
-        inputs.forEach(input => setup[input.name] = Number(input.value));
-        setup = Object.assign(options, setup);
-        worker.postMessage(setup);
-    };
-
-    worker.onmessage = (evt) => {
-        let img = evt.data.data;
-        let data = new ImageData(img, evt.data.width, evt.data.height);
-        ctx.putImageData(data, 0, 0);
-    };
+<script defer type="module" src="index.js">
 </script>
