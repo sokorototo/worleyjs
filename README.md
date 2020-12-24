@@ -155,7 +155,7 @@ That produces the following texture.
 
   ![](https://github.com/sokorototo/worley-noise/blob/master/media/custom_interpolant.png?raw=true) # A simple cut-off interpolant function.
 
-- **Toggle various distance metrics** metrics: Manhattan, Euclidean and Minkowski distance metrics are supported.
+- **Toggle various distance metrics**: Manhattan, Euclidean and Minkowski distance metrics are supported.
 
   ```javascript
   // Euclidean
