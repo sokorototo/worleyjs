@@ -155,7 +155,7 @@ That produces the following texture.
 
   ![](https://github.com/sokorototo/worley-noise/blob/master/media/custom_interpolant.png?raw=true) # A simple cut-off interpolant function.
 
-- **Toggle various distance metrics**: Manhattan, Euclidean and Minkowski distance metrics are supported.
+- **Toggle various distance metrics** metrics: Manhattan, Euclidean and Minkowski distance metrics are supported.
 
   ```javascript
   // Euclidean
@@ -236,4 +236,4 @@ That produces the following texture.
 - Bug reports and fixes.
 - All code is fully  accessible and is FREE for all use.
 - Created a demo Web App, located in extras/web-worker
-- This is my first github project, leave a star or something,, tell me what I have done wrong and what I have done right.
+- This is my first GitHub project, leave a star or something, tell me what I could have done wrong and what I maydone right.
