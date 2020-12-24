@@ -1,5 +1,7 @@
 # Worley Noise Generator.
 
+[![](https://data.jsdelivr.com/v1/package/npm/worleyjs/badge)](https://www.jsdelivr.com/package/npm/worleyjs)
+
 ##### A simple to use Worley noise generator written fully in JavaScript. The module is both embeddable and customizable. The module works both in the browser,  web workers and node. The module can be instanced via CommonJS, AMD or `script` tags.  Module written and implemented with ES6 promises in mind.  This module has **ZER0** dependencies whatsoever.
 
 ### Quick Links.
@@ -16,6 +18,12 @@
 
 ### **Installation**
 
+##### CDN
+  Deliver the package via cdn:
+  ```url
+  https://cdn.jsdelivr.net/npm/worleyjs@1.2.0/build/worley.min.js
+  ```
+
 ##### NPM.
 
 ​	To install with NPM run:
@@ -26,7 +34,7 @@ npm install worleyjs
 
 ##### Embedded.
 
-Include the file `worley.min.js`in your project directory. Then:
+Include the file `worley.min.js` in your project directory. Then:
 
 - Browser :  
 
@@ -71,11 +79,10 @@ let noise = new Worley({
 });
 
 // Full texture access
-let Data;
 noise.Texture.ImageData().then((imgData) => {
-    // Do something ctx.putImageData(imgData)
+    // Do something like ctx.putImageData(imgData)
     
-    console.log(imgData); // Uint8Array => [0,1,2....n]
+    console.log(imgData); // {width: Number ,height: Number ,data: Uint8Array => [0,1,2....n]
 })
 ```
 
