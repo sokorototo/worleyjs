@@ -1,2 +1,2 @@
-./examples
-./.npmignore
+/.npmignore
+/build/worley.test.js
