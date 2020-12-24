@@ -1,6 +1,7 @@
 # Worley Noise Generator.
 
-[![](https://data.jsdelivr.com/v1/package/npm/worleyjs/badge)](https://www.jsdelivr.com/package/npm/worleyjs)
+ ![npm](https://img.shields.io/npm/v/worleyjs?style=flat-square) ![NPM](https://img.shields.io/npm/l/worleyjs?color=blue) ![npm bundle size](https://img.shields.io/bundlephobia/min/worleyjs?style=flat-square) ![npm](https://img.shields.io/npm/dw/worleyjs?label=npm%20downloads) [![](https://data.jsdelivr.com/v1/package/npm/worleyjs/badge)](https://www.jsdelivr.com/package/npm/worleyjs)
+
 
 ##### A simple to use Worley noise generator written fully in JavaScript. The module is both embeddable and customizable. The module works both in the browser,  web workers and node. The module can be instanced via CommonJS, AMD or `script` tags.  Module written and implemented with ES6 promises in mind.  This module has **ZER0** dependencies whatsoever.
 
@@ -18,11 +19,16 @@
 
 ### **Installation**
 
-##### CDN
+##### CDN.
   Deliver the package via cdn:
-  ```url
-  https://cdn.jsdelivr.net/npm/worleyjs@1.2.0/build/worley.min.js
-  ```
+  - jsdelivr:
+    ```
+    https://cdn.jsdelivr.net/npm/worleyjs
+    ```
+- unpkg: 
+    ```
+    https://unpkg.com/worleyjs
+    ```
 
 ##### NPM.
 
@@ -36,7 +42,7 @@ npm install worleyjs
 
 Include the file `worley.min.js` in your project directory. Then:
 
-- Browser :  
+- Browser:  
 
   ```html
   <script src="path/to/worley.min.js">
@@ -45,8 +51,18 @@ Include the file `worley.min.js` in your project directory. Then:
 - Node: 
 
   ```javascript
-  const Worley = require("./path/to/worley.min.js")
+  const Worley = require("worleyjs");
   ```
+
+##### ES6 Module.
+
+In the build directory is an es6 module implementation of the library. The main|default import of the module id the `Worley` class itself:
+
+```javascript
+import Worley from "worley.min.esm";
+```
+
+------
 
 ##### Validate installation.
 
@@ -65,7 +81,7 @@ The module exposes a `Worley`  class. The `Worley` instance contains all the met
 ##### Basic.
 
 - The `crests` property defines how many `"spots"` there are in the texture.
-- The `threshold` argument dictates how far the slope of a crest extends.
+- The `threshold` argument dictates how far the slope of a crest extends. It is optional and when not passed a value is calculated using the `width`, `height` and `crests` values.
   - <img src="https://github.com/sokorototo/worley-noise/blob/master/media/moving.gif?raw=true" style="zoom: 50%;" />  # Threshold as it changes from 120 to 30
 - The `seed` argument is an array of 4 numbers which are seed to the RNG of the Texture.
 
@@ -87,9 +103,7 @@ noise.Texture.ImageData().then((imgData) => {
 ```
 
 That produces the following texture.
-
 ​	<img src="https://github.com/sokorototo/worley-noise/blob/master/media/monochrome.png?raw=true" style="zoom: 80%;" /> # A basic 256x256 monochrome Worley noise texture.
-
 
 
 #### Advanced.
@@ -141,7 +155,32 @@ That produces the following texture.
 
   ![](https://github.com/sokorototo/worley-noise/blob/master/media/custom_interpolant.png?raw=true) # A simple cut-off interpolant function.
 
-- **Value Of A Given Pixel:** To get the value of a single pixel. Given the x and y co-ordinates:
+- **Toggle various distance metrics**: Manhattan, Euclidean and Minkowski distance metrics are supported.
+
+  ```javascript
+  // Euclidean
+  { metric: {type: "euclidean"} };
+  
+  // Manhattan
+  { metric: {type: "manhattan"} };
+  
+  // Minkowski takes a second parameter, p: Number
+  { metric: {type: "minkowski", p: 2} };
+  ```
+  
+  
+  
+- **Manually add a crest:** To add a crest manually to a point in the texture, use relative coordinates from `0 - 1`:
+
+  ```javascript
+  // This adds a spot|crest to the centre of the texture using relative co-ordinates.
+  noise.addCrest(0.5, 0.5);
+  
+  // To add a point using absolute co-ordinates.
+  noise.addCrest(120, 100, false);
+  ```
+  
+- **Value Of A Given Pixel:** To get the value of a single pixel. Given the x and y co-ordinates.
 
   ```javascript
   // noise.pixel(x: in pixels, y: in pixels, ?interpolate, ?hierachy: which crest to consider first) 
@@ -156,7 +195,7 @@ That produces the following texture.
 - **Raw Data:** To access the raw noise values and not the RGBA texture.
 
   ```javascript
-  // Raw single channel noise data. Stored as a Uint8Array
+  // Raw single channel noise data. Stored as an Uint8Array ( a typed array of Unsigned 8-bit integers ).
   noise.Texture.generate().then((raw) => {
       // Do something with the data
       
@@ -173,9 +212,7 @@ That produces the following texture.
       console.log(crest); // -> [45, 56]
   })
   ```
-
-
-
+  
 ### Future Updates.
 
 - [x] Custom colour support.

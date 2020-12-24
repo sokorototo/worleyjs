@@ -9,7 +9,11 @@
             //Algorithm parameters
             this.crests = Worley.generateCrests(setup);
             this.threshold = setup.threshold;
+            if (this.threshold == undefined) {
+                this.threshold = Worley.predictThreshold(setup.width, setup.height, setup.crests);
+            };
             this.hierachy = setup.hierachy;
+            this.metric = setup.metric;
             this.interpolate = setup.interpolate;
             this.interpolant = setup.interpolant;
 
@@ -38,7 +42,7 @@
                 async ImageData(colors = this.parent.colors, alpha = this.parent.alpha, regenerate = false){
                     if (!this.data || regenerate) await this.generate();
                     let imgData;
-                    if(typeof document === "undefined"){
+                    if(!(typeof window !== "undefined" && typeof window.ImageData === "function")){
                         // NodeJS environment
                         imgData = {
                             [Symbol.toStringTag]: "ImageData",
@@ -87,7 +91,14 @@
                     return imgData
                 }
             };
-        }
+        };
+
+        addCrest(x, y, relative){
+            if (x == undefined || y == undefined) {
+                throw new Error("Cannot add crest without given coordiantres.")
+            };
+            relative? this.crests.push([Math.round(x * this.width), Math.round(y * this.height)]): this.crests.push([x, y]);
+        };
         async nearestCrest(x = 0, y = 0, hierachy = 0){
             if(this.crests.length === 0) return [Infinity, Infinity];
 
@@ -100,10 +111,10 @@
             // The function is named for debugging reasons
             let sortfn = (a, b) => {return a.distance - b.distance};
             return crests.sort(sortfn)[hierachy].crest;
-        }
+        };
         async pixel(x, y, interpolate = this.interpolate, hierachy = this.hierachy){
             let nearestCrest = await this.nearestCrest(x, y, hierachy);
-            let distance = Worley.magnitude([x - nearestCrest[0], y - nearestCrest[1]]);
+            let distance = Worley.magnitude([x - nearestCrest[0], y - nearestCrest[1]], this.metric);
             return (interpolate)? this.interpolant(0, 255, Worley.clamp(distance / this.threshold, 0, 1)): 255 * Worley.clamp(distance / this.threshold, 0, 1)
         };
 
@@ -130,15 +141,26 @@
             let crests = Array.from({length: setup.crests}, () => [Math.round(rand() * setup.width), Math.round(rand() * setup.height)]);
             return crests;
         };
-        static magnitude(vector){
-            return Math.sqrt((vector[0]**2 + vector[1]**2))
+        static magnitude(vector, metric = {type: "minkowski", p: 2}){
+            switch (metric.type){
+                case "euclidean":
+                    return Math.sqrt((vector[0]**2 + vector[1]**2));
+                case "manhattan":
+                    return Math.abs(vector[0]) + Math.abs(vector[1]);
+                case "minkowski":
+                    return Math.pow((vector[0]**metric.p + vector[1]**metric.p), 1 / metric.p);
+                default:
+                    return Math.sqrt((vector[0]**2 + vector[1]**2));
+            }
+        };
+        static predictThreshold(width, height, nodes){
+            return Math.sqrt((width * height) / (4 * nodes))
         };
         static default(){
             return {
                 width: 100,
                 height: 100,
                 crests: 20,
-                threshold: 55,
                 hierachy: 0,
                 interpolate: true,
                 interpolant: Worley.interpolate,
@@ -150,7 +172,8 @@
                     Math.floor(Math.random() * (Math.random() * 9253524321)) * 10,
                     Math.floor(Math.random() * (Math.random() * 4364645634)) * 10
                 ],
-                prerun: 2
+                prerun: 5,
+                metric: {type: "euclidean"}
             }
         };
         static rand (a, b, c, d) {
