@@ -59,7 +59,7 @@ Include the file `worley.min.js` in your project directory. Then:
 In the build directory is an es6 module implementation of the library. The main|default import of the module id the `Worley` class itself:
 
 ```javascript
-import Worley from "worley.min.esm";
+import Worley from "worley.min.mjs";
 ```
 
 ------

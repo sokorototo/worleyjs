@@ -99,7 +99,7 @@
             };
             relative? this.crests.push([Math.round(x * this.width), Math.round(y * this.height)]): this.crests.push([x, y]);
         };
-        async nearestCrest(x = 0, y = 0, hierachy = 0){
+        async nearestCrest(x, y, hierachy = 0){
             if(this.crests.length === 0) return [Infinity, Infinity];
 
             // Manual forloops are faster than higher order functions but array.sort is always an exception
