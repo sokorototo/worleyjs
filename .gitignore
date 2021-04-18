@@ -2,3 +2,4 @@
 /node_modules
 /build/worley.build.js
 /node_modules
+/.gitignore
