@@ -94,7 +94,10 @@ The module exposes a `Worley`  class. The `Worley` instance contains all the met
 
 - The `crests` property defines how many `"spots"` there are in the texture.
 - The `threshold` argument dictates how far the slope of a crest extends. It is optional and when not passed a value is calculated using the `width`, `height` and `crests` values.
-  - <img src="https://github.com/sokorototo/worley-noise/blob/master/media/moving.gif?raw=true" style="zoom: 50%;" />  # Threshold as it changes from 120 to 30
+  
+  - <img src="https://github.com/sokorototo/worley-noise/blob/master/media/moving.gif?raw=true" style="zoom: 50%;" /> 
+  
+  - ######  *# Threshold as it changes from 120 to 30*
 - The `seed` argument is an array of 4 numbers which are seed to the RNG of the Texture.
 
 ```javascript
@@ -113,7 +116,8 @@ noise.Texture.ImageData().then((imgData) => {
     console.log(imgData); // {width: Number ,height: Number ,data: Uint8Array => [0,1,2....n]
 })
 ```
-​	<img src="https://github.com/sokorototo/worley-noise/blob/master/media/monochrome.png?raw=true" style="zoom: 80%;" /> # A basic 256x256 monochrome Worley noise texture.
+​	<img src="https://github.com/sokorototo/worley-noise/blob/master/media/monochrome.png?raw=true" style="zoom: 80%;" />
+###### *A basic 256x256 monochrome Worley noise texture.*
 
 
 #### Advanced.
@@ -125,7 +129,9 @@ noise.Texture.ImageData().then((imgData) => {
   { colors: [[94, 6, 0], [230, 176, 20]] }
   ```
 
-  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/colors.png?raw=true" style="zoom: 80%;" /> # Custom Colours.
+  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/colors.png?raw=true" style="zoom: 80%;" />
+
+  ###### *Custom Colours.*
 
 - **Transparency:** To include the transparency to your texture. For more detailed transparency, pass a number to the `alpha` property where **0** is for no alpha influence and 1 is for full alpha influence. A number above **1** will overshoot the alpha and a value of **255** turns the texture fully transparent.
 
@@ -134,7 +140,9 @@ noise.Texture.ImageData().then((imgData) => {
   { alpha: true}
   ```
 
-  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/alpha.png?raw=true" style="zoom:80%;" /> # Alpha On.
+  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/alpha.png?raw=true" style="zoom:80%;" />
+
+  ###### *Alpha On.*
 
 - **Interpolation:** You can *"turn off"* interpolation for a little **(mostly insignificant)** speed boost. This doesn't actually turn off interpolation but rather uses bilinear interpolation ( simple distance from a point ) to calculate values. 😁. It also disables custom interpolation functions.
 
@@ -143,7 +151,9 @@ noise.Texture.ImageData().then((imgData) => {
   { interpolate: false }
   ```
 
-  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/interpolation_off.png?raw=true" style="zoom:80%;" /> # Interpolation Off, Compare with above texture.
+  <img src="https://github.com/sokorototo/worley-noise/blob/master/media/interpolation_off.png?raw=true" style="zoom:80%;" />
+
+  ###### *Interpolation Off, Compare with above texture.*
 
 - **Custom Interpolation Functions:**  To pass a custom interpolation function, simply pass a compatible function to the `interpolant` property in the config object of the noise instance. The `interpolate`  property needs to be set to true for this to work. The `interpolant` function takes three numbers. A lower value, an upper value and a *slider* value( which ranges from 1 to 0 ). With this function crazy effects can be achieved like belts, spots and cat fur patterns. *Expected* behaviour is that the slider defines a point on an interpolation curve, thus the closer the slider is to `0` the closer it is to the lower end of the graph, what the function does is simply **define the shape of the curve**. This is *expected* behaviour, you can obviously do whatever you want in the interpolant value, as long as it abides to the following rules:
 
@@ -163,7 +173,9 @@ noise.Texture.ImageData().then((imgData) => {
   }
   ```
 
-  ![](https://github.com/sokorototo/worley-noise/blob/master/media/custom_interpolant.png?raw=true) # A simple cut-off interpolant function.
+  ![](https://github.com/sokorototo/worley-noise/blob/master/media/custom_interpolant.png?raw=true) 
+
+  ###### *# A simple cut-off interpolant function.*
 
 - **Toggle various distance metrics**: Manhattan, Euclidean and Minkowski distance metrics are supported.
 
