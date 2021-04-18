@@ -7,7 +7,8 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "node build/worley.test.js"
+    "test": "node build/worley.test.js",
+    "build": "node build/worley.build.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,10 @@
   "bugs": {
     "url": "https://github.com/sokorototo/worley-noise/issues"
   },
-  "homepage": "https://github.com/sokorototo/worley-noise#readme"
+  "homepage": "https://github.com/sokorototo/worley-noise#readme",
+  "devDependencies": {
+    "uglify-js": "^3.13.4",
+    "ansi-colors": "4.1.1",
+    "jimp": "0.16.1"
+  }
 }
