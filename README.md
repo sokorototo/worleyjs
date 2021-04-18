@@ -99,9 +99,9 @@ The module exposes a `Worley`  class. The `Worley` instance contains all the met
 
 ```javascript
 let noise = new Worley({
-    width: 256, // In pixels
-    height: 256, // In pixels
-    threshold: 120,
+    width: 512, // In pixels
+    height: 512, // In pixels
+    threshold: 258,
     crests: 15,
     seed: [12345, 45678, 67890, 12345]
 });
@@ -124,7 +124,7 @@ That produces the following texture.
 
   ```javascript
   // RGB
-  { color: [[4, 131, 228], [4, 228, 49]]}
+  { colors: [[94, 6, 0], [230, 176, 20]] }
   ```
 
   <img src="https://github.com/sokorototo/worley-noise/blob/master/media/colors.png?raw=true" style="zoom: 80%;" /> # Custom Colours.
@@ -242,5 +242,5 @@ That produces the following texture.
 - Bug reports and fixes.
 - All code is fully  accessible and is FREE for all use.
 - Created a demo Web App, located in extras/web-worker
-- This is my first GitHub project, leave a star or something, tell me what I could have done wrong and what I maydone right.
+- This is my first GitHub project, leave a star or something, tell me what I could have done wrong.
 - For any complaints or suggestions go [here](https://github.com/sokorototo/worleyjs/issues).
