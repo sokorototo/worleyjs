@@ -1,3 +1,5 @@
+
+
 # Worley Noise Generator.
 
  ![npm](https://img.shields.io/npm/v/worleyjs?style=flat-square) ![NPM](https://img.shields.io/npm/l/worleyjs?color=blue) ![npm bundle size](https://img.shields.io/bundlephobia/min/worleyjs?style=flat-square) ![npm](https://img.shields.io/npm/dw/worleyjs?label=npm%20downloads) [![](https://data.jsdelivr.com/v1/package/npm/worleyjs/badge)](https://www.jsdelivr.com/package/npm/worleyjs)
@@ -60,6 +62,16 @@ In the build directory is an es6 module implementation of the library. The main|
 
 ```javascript
 import Worley from "worley.min.mjs";
+```
+
+
+
+##### RequireJS.
+
+```javascript
+requirejs(["path/to/worley.min.mjs"], function(Worley) {
+    // Do yo stuff over here
+});
 ```
 
 ------
