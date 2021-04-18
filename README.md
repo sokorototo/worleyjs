@@ -230,12 +230,6 @@ That produces the following texture.
 - [x] Custom colour support.
 - [x] NodeJS friendly.
 - [x] Custom interpolation functions.
-- [ ] WebGPU compute support for Parallel execution.
-- [ ] 3D slicing
-- [ ] Variable Transparency.
-- [ ] Per Crest unique influence.
-- [ ] Caching and Seed sorting bug fixes.
-- [ ] Add some form of jitter or distortion.
 
 
 
@@ -249,3 +243,4 @@ That produces the following texture.
 - All code is fully  accessible and is FREE for all use.
 - Created a demo Web App, located in extras/web-worker
 - This is my first GitHub project, leave a star or something, tell me what I could have done wrong and what I maydone right.
+- For any complaints or suggestions go [here](https://github.com/sokorototo/worleyjs/issues).
