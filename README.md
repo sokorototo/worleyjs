@@ -113,8 +113,6 @@ noise.Texture.ImageData().then((imgData) => {
     console.log(imgData); // {width: Number ,height: Number ,data: Uint8Array => [0,1,2....n]
 })
 ```
-
-That produces the following texture.
 ​	<img src="https://github.com/sokorototo/worley-noise/blob/master/media/monochrome.png?raw=true" style="zoom: 80%;" /> # A basic 256x256 monochrome Worley noise texture.
 
 
