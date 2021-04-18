@@ -53,6 +53,7 @@ class Worley{
                 } else {
                     imgData = new ImageData(this.parent.width, this.parent.height)
                 };
+                
                 for(let i = 0; i < imgData.data.length; i++){
                         let scale = this.data[Math.floor(i / 4)] / 255;
                         //Alpha
@@ -200,6 +201,5 @@ class Worley{
         return array[array.length - index]
     };
 };
-
 
 export default Worley;

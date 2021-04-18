@@ -1,3 +1,5 @@
+import Worley from "../build/worley.min.mjs";
+
 let canvas = document.getElementById("canvas")
 , ctx = canvas.getContext("2d")
 , options = {
