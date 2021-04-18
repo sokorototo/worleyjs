@@ -242,5 +242,5 @@ That produces the following texture.
 - Bug reports and fixes.
 - All code is fully  accessible and is FREE for all use.
 - Created a demo Web App, located in extras/web-worker
-- This is my first GitHub project, leave a star or something, tell me what I could have done wrong and what I maydone right.
+- This is my first GitHub project, leave a star or something, tell me what I could have done wrong.
 - For any complaints or suggestions go [here](https://github.com/sokorototo/worleyjs/issues).
