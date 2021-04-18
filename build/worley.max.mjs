@@ -1,3 +1,4 @@
+"use strict";
 class Worley{
     constructor(setup = Worley.default()){
         setup = Object.assign(Worley.default(), setup);
@@ -51,40 +52,41 @@ class Worley{
                     };
                 } else {
                     imgData = new ImageData(this.parent.width, this.parent.height)
-                }
+                };
+                
                 for(let i = 0; i < imgData.data.length; i++){
-                    let scale = this.data[Math.floor(i / 4)] / 255;
-                    //Alpha
-                    if((i + 1) % 4 ==0){
-                        // Number(false) returns 0
-                        imgData.data[i] = 255 - (scale * 255 * Number(alpha));
-                        continue;
-                    };
+                        let scale = this.data[Math.floor(i / 4)] / 255;
+                        //Alpha
+                        if((i + 1) % 4 ==0){
+                            // Number(false) returns 0
+                            imgData.data[i] = 255 - (scale * 255 * Number(alpha));
+                            continue;
+                        };
 
-                    //Monochrome
-                    if(!colors) {
-                        imgData.data[i] = this.data[Math.floor(i / 4)];
-                        continue
-                    };
+                        //Monochrome
+                        if(!colors) {
+                            imgData.data[i] = this.data[Math.floor(i / 4)];
+                            continue;
+                        };
 
-                    //RGBA
-                    switch((i + 1) % 4){
-                        case 1:
-                            //Red Channel
-                            let minR = colors[0][0], maxR = colors[1][0];
-                            imgData.data[i] = minR + ((maxR - minR) * scale);
-                            break;
-                        case 2:
-                            //Green Channel
-                            let minG = colors[0][1], maxG = colors[1][1];
-                            imgData.data[i] = minG + ((maxG - minG) * scale);
-                            break;
-                        case 3:
-                            //Blue Channel
-                            let minB = colors[0][2], maxB = colors[1][2];
-                            imgData.data[i] = minB + ((maxB - minB) * scale);
-                            break;
-                    }
+                        //RGBA
+                        switch((i + 1) % 4){
+                            case 1:
+                                //Red Channel
+                                let minR = colors[0][0], maxR = colors[1][0];
+                                imgData.data[i] = minR + ((maxR - minR) * scale);
+                                break;
+                            case 2:
+                                //Green Channel
+                                let minG = colors[0][1], maxG = colors[1][1];
+                                imgData.data[i] = minG + ((maxG - minG) * scale);
+                                break;
+                            case 3:
+                                //Blue Channel
+                                let minB = colors[0][2], maxB = colors[1][2];
+                                imgData.data[i] = minB + ((maxB - minB) * scale);
+                                break;
+                        }
                 };
 
                 return imgData
@@ -107,14 +109,16 @@ class Worley{
             let crest = crests[i];
             crests[i] = {crest, distance: Worley.magnitude([x - crest[0], y - crest[1]])}
         };
-        // The function is named for debugging reasons
-        let sortfn = (a, b) => {return a.distance - b.distance};
-        return crests.sort(sortfn)[hierachy].crest;
+
+        return Worley.find(crests, hierachy).crest;
     };
     async pixel(x, y, interpolate = this.interpolate, hierachy = this.hierachy){
+        x++;
         let nearestCrest = await this.nearestCrest(x, y, hierachy);
         let distance = Worley.magnitude([x - nearestCrest[0], y - nearestCrest[1]], this.metric);
-        return (interpolate)? this.interpolant(0, 255, Worley.clamp(distance / this.threshold, 0, 1)): 255 * Worley.clamp(distance / this.threshold, 0, 1)
+        return (interpolate)?
+            this.interpolant(0, 255, Worley.clamp(distance / this.threshold, 0, 1)): //ERRORS HERE?
+            255 * Worley.clamp(distance / this.threshold, 0, 1)
     };
 
     // "Global" module methods
@@ -188,6 +192,14 @@ class Worley{
             return (t >>> 0) / 4294967296;
         }
     }
+    static find(array, index){
+        index++;
+        if (index > array.length) index = array.length;
+        for (let i = 0; i < index; i++) {
+            for (let j = 0; j < (array.length - 1); j++) if (array[j].distance < array[j + 1].distance) [array[j], array[j + 1]] = [array[j + 1], array[j]];
+        };
+        return array[array.length - index]
+    };
 };
 
 export default Worley;

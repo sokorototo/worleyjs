@@ -1,12 +1,14 @@
+"use strict";
+
 ((Global) => {
     class Worley{
         constructor(setup = Worley.default()){
             setup = Object.assign(Worley.default(), setup);
-            //Texture parameters
+            // Texture parameters
             this.width = setup.width;
             this.height = setup.height;
-
-            //Algorithm parameters
+    
+            // Algorithm parameters
             this.crests = Worley.generateCrests(setup);
             this.threshold = setup.threshold;
             if (this.threshold == undefined) {
@@ -16,16 +18,16 @@
             this.metric = setup.metric;
             this.interpolate = setup.interpolate;
             this.interpolant = setup.interpolant;
-
-            //Color parameters
+    
+            // Color parameters
             this.colors = setup.colors;
             this.alpha = setup.alpha? setup.alpha + 0.00001: false;
-
-            //Seed parameters
+    
+            // Seed parameters
             while(setup.seed.length < 4) setup.seed.push(Math.floor(10 * Math.random() * (Math.random() * 2456665234)));
             this.seed = setup.seed.sort();
-
-            //This Texture object property abstracts texture manipulation
+    
+            // This Texture object property abstracts texture manipulation
             this.Texture = {
                 parent: this,
                 async generate(){
@@ -52,47 +54,48 @@
                         };
                     } else {
                         imgData = new ImageData(this.parent.width, this.parent.height)
-                    }
+                    };
+                    
                     for(let i = 0; i < imgData.data.length; i++){
-                        let scale = this.data[Math.floor(i / 4)] / 255;
-                        //Alpha
-                        if((i + 1) % 4 ==0){
-                            // Number(false) returns 0
-                            imgData.data[i] = 255 - (scale * 255 * Number(alpha));
-                            continue;
-                        };
+                            let scale = this.data[Math.floor(i / 4)] / 255;
+                            // Alpha
+                            if((i + 1) % 4 ==0){
+                                // Number(false) returns 0
+                                imgData.data[i] = 255 - (scale * 255 * Number(alpha));
+                                continue;
+                            };
 
-                        //Monochrome
-                        if(!colors) {
-                            imgData.data[i] = this.data[Math.floor(i / 4)];
-                            continue
-                        };
+                            // Monochrome
+                            if(!colors) {
+                                imgData.data[i] = this.data[Math.floor(i / 4)];
+                                continue;
+                            };
 
-                        //RGBA
-                        switch((i + 1) % 4){
-                            case 1:
-                                //Red Channel
-                                let minR = colors[0][0], maxR = colors[1][0];
-                                imgData.data[i] = minR + ((maxR - minR) * scale);
-                                break;
-                            case 2:
-                                //Green Channel
-                                let minG = colors[0][1], maxG = colors[1][1];
-                                imgData.data[i] = minG + ((maxG - minG) * scale);
-                                break;
-                            case 3:
-                                //Blue Channel
-                                let minB = colors[0][2], maxB = colors[1][2];
-                                imgData.data[i] = minB + ((maxB - minB) * scale);
-                                break;
-                        }
+                            // RGBA
+                            switch((i + 1) % 4){
+                                case 1:
+                                    // Red Channel
+                                    let minR = colors[0][0], maxR = colors[1][0];
+                                    imgData.data[i] = minR + ((maxR - minR) * scale);
+                                    break;
+                                case 2:
+                                    // Green Channel
+                                    let minG = colors[0][1], maxG = colors[1][1];
+                                    imgData.data[i] = minG + ((maxG - minG) * scale);
+                                    break;
+                                case 3:
+                                    // Blue Channel
+                                    let minB = colors[0][2], maxB = colors[1][2];
+                                    imgData.data[i] = minB + ((maxB - minB) * scale);
+                                    break;
+                            }
                     };
 
                     return imgData
                 }
             };
         };
-
+    
         addCrest(x, y, relative){
             if (x == undefined || y == undefined) {
                 throw new Error("Cannot add crest without given coordiantres.")
@@ -101,23 +104,25 @@
         };
         async nearestCrest(x = 0, y = 0, hierachy = 0){
             if(this.crests.length === 0) return [Infinity, Infinity];
-
+    
             // Manual forloops are faster than higher order functions but array.sort is always an exception
             let crests = this.crests.slice(0);
             for (let i = 0; i < crests.length; i++) {
                 let crest = crests[i];
                 crests[i] = {crest, distance: Worley.magnitude([x - crest[0], y - crest[1]])}
             };
-            // The function is named for debugging reasons
-            let sortfn = (a, b) => {return a.distance - b.distance};
-            return crests.sort(sortfn)[hierachy].crest;
+
+            return Worley.find(crests, hierachy).crest;
         };
         async pixel(x, y, interpolate = this.interpolate, hierachy = this.hierachy){
+            x++;
             let nearestCrest = await this.nearestCrest(x, y, hierachy);
             let distance = Worley.magnitude([x - nearestCrest[0], y - nearestCrest[1]], this.metric);
-            return (interpolate)? this.interpolant(0, 255, Worley.clamp(distance / this.threshold, 0, 1)): 255 * Worley.clamp(distance / this.threshold, 0, 1)
+            return (interpolate)?
+                this.interpolant(0, 255, Worley.clamp(distance / this.threshold, 0, 1)): // ERRORS HERE?
+                255 * Worley.clamp(distance / this.threshold, 0, 1)
         };
-
+    
         // "Global" module methods
         static clamp(val, min, max){
             if(val > max){
@@ -135,7 +140,7 @@
         static generateCrests(setup = Worley.default()) {
             // Initialize the Random Number Generator
             let rand = Worley.rand(setup.seed[0], setup.seed[1], setup.seed[2], setup.seed[3]);
-
+    
             for(let i = 0; i <= setup.prerun; i ++) rand();
             // Generate the crests
             let crests = Array.from({length: setup.crests}, () => [Math.round(rand() * setup.width), Math.round(rand() * setup.height)]);
@@ -177,7 +182,7 @@
             }
         };
         static rand (a, b, c, d) {
-            //Pseudo-Random "Seedable" Number Generator: SCF32 Algorithm used
+            // Pseudo-Random "Seedable" Number Generator: SCF32 Algorithm used
             return function() {
                 a |= 0; b |= 0; c |= 0; d |= 0; 
                 var t = (a + b | 0) + d | 0;
@@ -189,11 +194,19 @@
                 return (t >>> 0) / 4294967296;
             }
         }
+        static find(array, index){
+            index++;
+            if (index > array.length) index = array.length;
+            for (let i = 0; i < index; i++) {
+                for (let j = 0; j < (array.length - 1); j++) if (array[j].distance < array[j + 1].distance) [array[j], array[j + 1]] = [array[j + 1], array[j]];
+            };
+            return array[array.length - index]
+        };
     };
 
     if (typeof define === 'function' && define.amd) {
         // Asynchronous Module Definition (AMD).
-        define(["Worley"], Worley);
+        define(() => Worley);
     } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
         // CommonJS
         module.exports = Worley

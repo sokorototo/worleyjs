@@ -1,2 +1,2 @@
-/.npmignore
-/.vscode
+/node_modules
+/pic.png
