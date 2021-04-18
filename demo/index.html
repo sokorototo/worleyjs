@@ -1,0 +1,84 @@
+<title>Simple Demo</title>
+<style>
+    body, html{
+        box-sizing: border-box;
+        width: 98%;
+        height: 98%;
+        overflow: hidden;
+    }
+    body{
+        display: flex;
+        align-items: center;
+        background-color: bisque;
+        justify-content: center;
+    }
+    div#container{
+        width: fit-content;
+        display: grid;
+        grid-template-columns: 5fr 7fr;
+        box-shadow: 5px 5px 5px #002e4d;
+        border: 2px solid black;
+        border-radius: 1px;
+    }
+    canvas#canvas{
+        width: 256px;
+        height: 256px;
+        border: 1px solid black;
+        background-color: #d0082d;
+    }
+    div#controls{
+        display: grid;
+        grid-template-rows: auto;
+        padding: 5px;
+        background-color: brown;
+    }
+    div#controls:last-child{
+        background-color: #0b7bc5;
+    }
+    div.control{
+        background-color: #f8e8be;
+        border: 1px solid #0b7bc5;
+        color: black;
+    }
+    div.control > input{
+        text-align: center;
+        font-weight: 1000;
+        font-size: 1rem;
+        color: #08002e;
+        width: 100%;
+        height: 98%;
+    }
+    div.control > button{
+        width: 100%;
+        height: 98%;
+        padding: 0;
+        background-color: black;
+        color: lime;
+        font-family: monospace;
+        font-size: x-large;
+        font-weight: bolder;
+        text-transform: uppercase;
+    }
+    div.control > button:active{
+        background-color: lime;
+        color: black;
+    }
+</style>
+<div id="container">
+    <canvas id=canvas width="256" height="256" style="width: 256px; height: 256px; border: 2px solid black; background-color: aquamarine;" title="width: 256, height: 256"></canvas>
+    <div id="controls">
+        <div class="control">
+            <input name="threshold" title="threshold" type="number" placeholder="Threshold">
+        </div>
+        <div class="control">
+            <input name="crests" title="crests" type="number" placeholder="Crests">
+        </div>
+        <div class="control">
+            <input name="hierachy" title="hierachy" type="number" placeholder="Hierachy">
+        </div>
+        <div class="control">
+            <button id="trigger">GENERATE!</BUtton>
+        </div>
+    </div>
+</div>
+<script defer type="module" src="./index.js"></script>
