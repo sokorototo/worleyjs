@@ -4,11 +4,11 @@
     class Worley{
         constructor(setup = Worley.default()){
             setup = Object.assign(Worley.default(), setup);
-            //Texture parameters
+            // Texture parameters
             this.width = setup.width;
             this.height = setup.height;
     
-            //Algorithm parameters
+            // Algorithm parameters
             this.crests = Worley.generateCrests(setup);
             this.threshold = setup.threshold;
             if (this.threshold == undefined) {
@@ -19,15 +19,15 @@
             this.interpolate = setup.interpolate;
             this.interpolant = setup.interpolant;
     
-            //Color parameters
+            // Color parameters
             this.colors = setup.colors;
             this.alpha = setup.alpha? setup.alpha + 0.00001: false;
     
-            //Seed parameters
+            // Seed parameters
             while(setup.seed.length < 4) setup.seed.push(Math.floor(10 * Math.random() * (Math.random() * 2456665234)));
             this.seed = setup.seed.sort();
     
-            //This Texture object property abstracts texture manipulation
+            // This Texture object property abstracts texture manipulation
             this.Texture = {
                 parent: this,
                 async generate(){
@@ -58,33 +58,33 @@
                     
                     for(let i = 0; i < imgData.data.length; i++){
                             let scale = this.data[Math.floor(i / 4)] / 255;
-                            //Alpha
+                            // Alpha
                             if((i + 1) % 4 ==0){
                                 // Number(false) returns 0
                                 imgData.data[i] = 255 - (scale * 255 * Number(alpha));
                                 continue;
                             };
 
-                            //Monochrome
+                            // Monochrome
                             if(!colors) {
                                 imgData.data[i] = this.data[Math.floor(i / 4)];
                                 continue;
                             };
 
-                            //RGBA
+                            // RGBA
                             switch((i + 1) % 4){
                                 case 1:
-                                    //Red Channel
+                                    // Red Channel
                                     let minR = colors[0][0], maxR = colors[1][0];
                                     imgData.data[i] = minR + ((maxR - minR) * scale);
                                     break;
                                 case 2:
-                                    //Green Channel
+                                    // Green Channel
                                     let minG = colors[0][1], maxG = colors[1][1];
                                     imgData.data[i] = minG + ((maxG - minG) * scale);
                                     break;
                                 case 3:
-                                    //Blue Channel
+                                    // Blue Channel
                                     let minB = colors[0][2], maxB = colors[1][2];
                                     imgData.data[i] = minB + ((maxB - minB) * scale);
                                     break;
@@ -119,7 +119,7 @@
             let nearestCrest = await this.nearestCrest(x, y, hierachy);
             let distance = Worley.magnitude([x - nearestCrest[0], y - nearestCrest[1]], this.metric);
             return (interpolate)?
-                this.interpolant(0, 255, Worley.clamp(distance / this.threshold, 0, 1)): //ERRORS HERE?
+                this.interpolant(0, 255, Worley.clamp(distance / this.threshold, 0, 1)): // ERRORS HERE?
                 255 * Worley.clamp(distance / this.threshold, 0, 1)
         };
     
@@ -182,7 +182,7 @@
             }
         };
         static rand (a, b, c, d) {
-            //Pseudo-Random "Seedable" Number Generator: SCF32 Algorithm used
+            // Pseudo-Random "Seedable" Number Generator: SCF32 Algorithm used
             return function() {
                 a |= 0; b |= 0; c |= 0; d |= 0; 
                 var t = (a + b | 0) + d | 0;
