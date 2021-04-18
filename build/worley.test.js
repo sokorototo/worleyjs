@@ -13,6 +13,7 @@ try{
         alpha: false,
         prerun: 5,
         interpolate: true,
+        hierachy: 0,
         interpolant: (min, max, x) => {
             let noiseLevel = 0.35;
             let y = Math.pow(Math.min(Math.cos(Math.PI * x / 2.0), 1.0 - Math.abs(x)), 3) + (noiseLevel * Math.random());

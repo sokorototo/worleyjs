@@ -206,7 +206,7 @@
 
     if (typeof define === 'function' && define.amd) {
         // Asynchronous Module Definition (AMD).
-        define(["Worley"], Worley);
+        define(() => Worley);
     } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
         // CommonJS
         module.exports = Worley
