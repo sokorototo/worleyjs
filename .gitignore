@@ -1,2 +1,4 @@
 /node_modules
 /pic.png
+/.vscode/
+/package-lock.json

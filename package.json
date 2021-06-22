@@ -1,6 +1,6 @@
 {
   "name": "worleyjs",
-  "version": "1.3.6",
+  "version": "1.4.0",
   "description": "An embedabble and simple Worley Noise written in Javascript. CPU-Asynchronous",
   "main": "build/worley.min.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "node build/worley.test.js",
-    "build": "node build/worley.build.js"
+    "build": "rollup --config ./build/worley.build.js"
   },
   "repository": {
     "type": "git",
@@ -28,8 +28,14 @@
   },
   "homepage": "https://github.com/sokorototo/worley-noise#readme",
   "devDependencies": {
-    "uglify-js": "^3.13.4",
     "ansi-colors": "4.1.1",
-    "jimp": "0.16.1"
-  }
+    "jimp": "0.16.1",
+    "rollup": "^2.50.4"
+  },
+  "files": [
+    "./worley.min.js",
+    "./worley.min.mjs",
+    "./worley.test.js",
+    "./README.md"
+  ]
 }

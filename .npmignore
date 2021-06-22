@@ -1,9 +1,0 @@
-/.gitignore
-/media
-/demo
-/build/worley.max.js
-/build/worley.max.mjs
-/build/worley.build.js
-/build/worley.max.mjs
-/build/worley.test.js
-/node_modules
