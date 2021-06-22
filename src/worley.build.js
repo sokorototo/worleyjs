@@ -1,6 +1,6 @@
 export default [
     {
-        input: './build/worley.max.mjs',
+        input: './src/worley.max.mjs',
         output: {
             file: './build/worley.min.js',
             name: "Worley",
@@ -8,7 +8,7 @@ export default [
         }
     },
     {
-        input: './build/worley.max.mjs',
+        input: './src/worley.max.mjs',
         output: {
             file: './build/worley.min.mjs',
             format: 'es'

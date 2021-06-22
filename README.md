@@ -234,7 +234,17 @@ noise.Texture.ImageData().then((imgData) => {
       console.log(crest); // -> [45, 56]
   })
   ```
-  
+### Building.
+
+```bash
+git clone https://github.com/sokorototo/worleyjs.git
+cd worleyjs
+npm install
+npm run build
+```
+
+> `worley.min.**js` files in the build folder.
+
 ### Future Updates.
 
 - [x] Custom colour support.
@@ -254,3 +264,4 @@ noise.Texture.ImageData().then((imgData) => {
 - Created a demo Web App, located in extras/web-worker
 - This is my first GitHub project, leave a star or something, tell me what I could have done wrong.
 - For any complaints or suggestions go [here](https://github.com/sokorototo/worleyjs/issues).
+

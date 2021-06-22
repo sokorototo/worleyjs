@@ -1,8 +1,6 @@
-const Jimp = require("jimp");
-
 // This test is built to run in a NodeJs environment
 try{
-    const Worley = require("./worley.min");
+    const Worley = require("../build/worley.min");
     
     let Noise = new Worley({
         width: 512,
@@ -61,18 +59,7 @@ try{
 
     // Texture.ImageData test
     then = Date.now();
-    Noise.Texture.ImageData().then((output) => {
-        new Jimp(Noise.width, Noise.height, (_, img) => {
-            img.bitmap = output;
-            img.getBuffer("image/png", (__, buff) => {
-                let fs = require("fs");
-                fs.promises.writeFile("pic.png", buff)
-            })
-        });
-        let now = Date.now();
-        console.log(`[DEBUG]: Texture.ImageData took ${(now - then) / 1000}s to execute`);
-        console.log(`[DEBUG]: Texture.ImageData -> TEST PASSED\n`);
-    });
+    Noise.Texture.ImageData().then((output) => {console.log(output) });
 } catch (e){
     console.log(`[ERROR]: Worley has not installed correctly or an internal error has been raised.`);
     console.log(`[REPO]: https://github.com/sokorototo/worley-noise`);
