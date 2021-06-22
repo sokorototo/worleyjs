@@ -1,3 +1,5 @@
+const PNG = require("pngjs").PNG, { createWriteStream } = require("fs");
+
 // This test is built to run in a NodeJs environment
 try{
     const Worley = require("../build/worley.min");
@@ -59,7 +61,16 @@ try{
 
     // Texture.ImageData test
     then = Date.now();
-    Noise.Texture.ImageData().then((output) => {console.log(output) });
+    Noise.Texture.ImageData().then((output) => {
+        let png = new PNG({
+            width: output.width,
+            height: output.height,
+            inputHasAlpha: true
+        });
+        png.data = output.data;
+        png.pack().pipe(createWriteStream("pic.png"));
+        png.on("finish", () => { console.log("[TEST] => All tests passed!") })
+    });
 } catch (e){
     console.log(`[ERROR]: Worley has not installed correctly or an internal error has been raised.`);
     console.log(`[REPO]: https://github.com/sokorototo/worley-noise`);
