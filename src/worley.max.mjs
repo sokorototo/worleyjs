@@ -24,15 +24,14 @@ class Worley{
 
         // Seed parameters
         while(setup.seed.length < 4) setup.seed.push(Math.floor(10 * Math.random() * (Math.random() * 2456665234)));
-        this.seed = setup.seed.sort();
 
         // This Texture object property abstracts texture manipulation
         this.Texture = {
             parent: this,
             async generate(){
-                let data = new Uint8ClampedArray(this.parent.width * this.parent.height);
-                for(let x = 0; x <= this.parent.width; x ++){
-                    for(let y = 0; y <= this.parent.height; y++){
+                const data = new Uint8ClampedArray(this.parent.width * this.parent.height), width = this.parent.width, height = this.parent.height;
+                for(let x = 0; x <= width; x ++){
+                    for(let y = 0; y <= height; y++){
                         data[y * this.parent.width + x] = await this.parent.pixel(x, y)
                     }
                 };
@@ -105,9 +104,9 @@ class Worley{
     async nearestCrest(x = 0, y = 0, hierachy = 0){
         if(this.crests.length === 0) return [Infinity, Infinity];
 
-        // Manual forloops are faster than higher order functions but array.sort is always an exception
-        let crests = this.crests.slice(0);
-        for (let i = 0; i < crests.length; i++) {
+        // Manual for-loops are faster than higher order functions but array.sort is always an exception
+        const crests = this.crests.slice(0), iterations = crests.length;
+        for (let i = 0; i < iterations; i++) {
             let crest = crests[i];
             crests[i] = {crest, distance: Worley.magnitude([x - crest[0], y - crest[1]])}
         };
@@ -119,8 +118,8 @@ class Worley{
         x++;
         let nearestCrest = await this.nearestCrest(x, y, hierachy);
         let distance = Worley.magnitude([x - nearestCrest[0], y - nearestCrest[1]], this.metric);
-        return (interpolate)?
-            this.interpolant(0, 255, Worley.clamp(distance / this.threshold, 0, 1)): // ERRORS HERE?
+        return interpolate ?
+            this.interpolant(0, 255, Worley.clamp(distance / this.threshold, 0, 1)):
             255 * Worley.clamp(distance / this.threshold, 0, 1)
     };
 
@@ -140,11 +139,11 @@ class Worley{
     }
     static generateCrests(setup = Worley.default(), noise) {
         // Initialize the Random Number Generator
-        let rand = Worley.rand(setup.seed[0], setup.seed[1], setup.seed[2], setup.seed[3]);
-        for(let i = 0; i <= setup.prerun; i ++) rand();
+        const rand = Worley.rand(setup.seed[0], setup.seed[1], setup.seed[2], setup.seed[3]), prerun = setup.prerun, crests = setup.crests;
+        for(let i = 0; i <= prerun; i ++) rand();
 
         // Generate the crests
-        for (let i = 0; i < setup.crests; i++) noise.addCrest(rand(), rand(), true);
+        for (let i = 0; i < crests; i++) noise.addCrest(rand(), rand(), true);
     };
     static magnitude(vector, metric = {type: "minkowski", p: 2}){
         switch (metric.type){
@@ -185,7 +184,7 @@ class Worley{
         // Pseudo-Random "Seedable" Number Generator: SCF32 Algorithm used
         return function() {
             a |= 0; b |= 0; c |= 0; d |= 0; 
-            var t = (a + b | 0) + d | 0;
+            let t = (a + b | 0) + d | 0;
             d = d + 1 | 0;
             a = b ^ b >>> 9;
             b = c + (c << 3) | 0;

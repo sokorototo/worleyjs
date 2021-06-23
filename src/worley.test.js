@@ -21,7 +21,6 @@ try{
         }
     });
 
-    // 1.947, 
     let then = Date.now();
 
     // Noise.pixel test
