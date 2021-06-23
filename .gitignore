@@ -1,5 +1,5 @@
-node_modules
 pic.png
-/.vscode/
+node_modules/
+./.vscode/
 package-lock.json
 build
