@@ -7,11 +7,12 @@ class Worley{
         this.height = setup.height;
 
         // Algorithm parameters
-        this.crests = Worley.generateCrests(setup);
+        this.crests = [];
         this.threshold = setup.threshold;
         if (this.threshold == undefined) {
             this.threshold = Worley.predictThreshold(setup.width, setup.height, setup.crests);
         };
+        Worley.generateCrests(setup, this);
         this.hierachy = setup.hierachy;
         this.metric = setup.metric;
         this.interpolate = setup.interpolate;
@@ -94,11 +95,12 @@ class Worley{
         };
     };
 
-    addCrest(x, y, relative){
-        if (x == undefined || y == undefined) {
-            throw new Error("Cannot add crest without given coordiantres.")
-        };
-        relative? this.crests.push([Math.round(x * this.width), Math.round(y * this.height)]): this.crests.push([x, y]);
+    addCrest(x, y, relative = false){
+        // Cannot add undefined crest
+        if (x == undefined || y == undefined) throw new Error("Cannot add crest without given coordiantres.");
+
+        // Check if co-ordinates are relative
+        this.crests.push(relative ? [Math.round(x * this.width), Math.round(y * this.height)] : [x, y]);
     };
     async nearestCrest(x = 0, y = 0, hierachy = 0){
         if(this.crests.length === 0) return [Infinity, Infinity];
@@ -110,6 +112,7 @@ class Worley{
             crests[i] = {crest, distance: Worley.magnitude([x - crest[0], y - crest[1]])}
         };
 
+        // Find nearest crest
         return Worley.find(crests, hierachy).crest;
     };
     async pixel(x, y, interpolate = this.interpolate, hierachy = this.hierachy){
@@ -121,7 +124,7 @@ class Worley{
             255 * Worley.clamp(distance / this.threshold, 0, 1)
     };
 
-    // "Global" module methods
+    // "Static" module methods, used internally
     static clamp(val, min, max){
         if(val > max){
             return max
@@ -135,14 +138,13 @@ class Worley{
         x = (Math.sin((Math.PI * x) - (Math.PI / 2)) + 1) / 2;
         return (min + ((max - min) * x))
     }
-    static generateCrests(setup = Worley.default()) {
+    static generateCrests(setup = Worley.default(), noise) {
         // Initialize the Random Number Generator
         let rand = Worley.rand(setup.seed[0], setup.seed[1], setup.seed[2], setup.seed[3]);
-
         for(let i = 0; i <= setup.prerun; i ++) rand();
+
         // Generate the crests
-        let crests = Array.from({length: setup.crests}, () => [Math.round(rand() * setup.width), Math.round(rand() * setup.height)]);
-        return crests;
+        for (let i = 0; i < setup.crests; i++) noise.addCrest(rand(), rand(), true);
     };
     static magnitude(vector, metric = {type: "minkowski", p: 2}){
         switch (metric.type){

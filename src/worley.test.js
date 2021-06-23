@@ -2,13 +2,13 @@ const PNG = require("pngjs").PNG, { createWriteStream } = require("fs");
 
 // This test is built to run in a NodeJs environment
 try{
-    const Worley = require("../build/worley.min");
+    const Worley = require("../build/worley.min"), size = 512;
     
     let Noise = new Worley({
-        width: 512,
-        height: 512,
-        crests: 0,
-        threshold: 512 / 4,
+        width: size,
+        height: size,
+        crests: 54,
+        threshold: size / 4,
         colors: [[235, 201, 12], [44, 2, 2]],
         alpha: false,
         prerun: 5,
@@ -21,13 +21,7 @@ try{
         }
     });
 
-    let distribution = 1 + 512 / 4;
-    for (let x = distribution; x < 512; x += distribution) {
-        for (let y = distribution; y < 512; y += distribution) {
-            Noise.addCrest(x, y);
-        }
-    }
-
+    // 1.947, 
     let then = Date.now();
 
     // Noise.pixel test
@@ -41,7 +35,7 @@ try{
 
     // Noise.nearestCrest test
     then = Date.now();
-    Noise.nearestCrest(512, 512, 0).then((output) => {
+    Noise.nearestCrest(size, size, 0).then((output) => {
         let now = Date.now();
         console.log(`[OUTPUT]: Noise.nearestCrest => [X:${output[0]}, Y:${output[1]}]`);
         console.log(`[DEBUG]: Noise.nearestCrest took ${(now - then) / 1000}s to execute`);
