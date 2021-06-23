@@ -264,4 +264,3 @@ npm run build
 - Created a demo Web App, located in extras/web-worker
 - This is my first GitHub project, leave a star or something, tell me what I could have done wrong.
 - For any complaints or suggestions go [here](https://github.com/sokorototo/worleyjs/issues).
-
