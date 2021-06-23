@@ -5,7 +5,6 @@ let canvas = document.getElementById("canvas")
 , options = {
     width: 256,
     height: 256,
-    seed: [12345, 45678, 67890, 242521],
     colors: [[255, 134, 65], [123, 35, 100]],
     interpolate: false,
     threshold: 8
