@@ -1,5 +1,6 @@
 pic.png
 package-lock.json
-build/
 ./.vscode/
 node_modules/
+build/worley.min.js
+build/worley.min.mjs
