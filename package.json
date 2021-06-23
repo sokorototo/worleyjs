@@ -29,7 +29,8 @@
   "homepage": "https://github.com/sokorototo/worley-noise#readme",
   "devDependencies": {
     "pngjs": "^6.0.0",
-    "rollup": "^2.50.4"
+    "rollup": "^2.50.4",
+    "rollup-plugin-uglify": "^6.0.4"
   },
   "files": [
     "./build/",
