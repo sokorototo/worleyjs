@@ -1,8 +1,13 @@
 {
   "name": "worleyjs",
-  "version": "1.4.7",
-  "description": "An embedabble and simple Worley Noise written in Javascript. CPU-Asynchronous",
+  "version": "1.4.8",
+  "description": "An embedabble and simple Worley Noise generator written in Javascript",
   "main": "build/worley.min.js",
+  "exports": {
+    "import": "./build/worley.min.mjs",
+    "default":"./build/worley.min.js",
+    "require": "./build/worley.min.js"
+  },
   "scripts": {
     "test": "node ./src/worley.test.js",
     "build": "rollup --config ./src/worley.build.js"

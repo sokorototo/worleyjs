@@ -5,7 +5,7 @@
  ![npm](https://img.shields.io/npm/v/worleyjs?style=flat-square) ![NPM](https://img.shields.io/npm/l/worleyjs?color=blue) ![npm bundle size](https://img.shields.io/bundlephobia/min/worleyjs?style=flat-square) ![npm](https://img.shields.io/npm/dw/worleyjs?label=npm%20downloads) [![](https://data.jsdelivr.com/v1/package/npm/worleyjs/badge)](https://www.jsdelivr.com/package/npm/worleyjs)
 
 
-##### A simple to use Worley noise generator written fully in JavaScript. The module is both embeddable and customizable. The module works both in the browser,  web workers and node. The module can be instanced via CommonJS, AMD or `script` tags.  Module written and implemented with ES6 promises in mind.  This module has **ZER0** dependencies whatsoever.
+##### A simple to use Worley noise generator written fully in JavaScript. The module is both embeddable and customizable. The module works both in the browser,  web workers and node. The module can be instanced via CommonJS, AMD or `script` tags.  Module uses ES6 promises.  This module has **ZER0** dependencies whatsoever.
 
 ### Quick Links.
 

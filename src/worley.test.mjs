@@ -1,8 +1,10 @@
-const PNG = require("pngjs").PNG, { createWriteStream } = require("fs");
+import { PNG } from "pngjs";
+import { createWriteStream } from "fs";
+import Worley from "../build/worley.min.mjs";
 
-// This test is built to run in a NodeJs environment
+// This test is built to run in a Node or Deno environment
 try{
-	const Worley = require("../build/worley.min"), size = 512;
+	const size = 512;
 	
 	let Noise = new Worley({
 		width: size,
