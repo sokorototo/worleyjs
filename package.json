@@ -1,6 +1,6 @@
 {
   "name": "worleyjs",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "An embedabble and simple Worley Noise written in Javascript. CPU-Asynchronous",
   "main": "build/worley.min.js",
   "scripts": {
@@ -30,8 +30,8 @@
     "rollup-plugin-uglify": "^6.0.4"
   },
   "files": [
-    "./build/worley.min.mjs",
-    "./build/worley.min.js",
-    "./README.md"
+    "build/worley.min.mjs",
+    "build/worley.min.js",
+    "README.md"
   ]
 }
