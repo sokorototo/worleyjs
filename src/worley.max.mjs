@@ -153,7 +153,12 @@ class Worley{
 
     static generateCrests(setup = Worley.default(), noise) {
         // Initialize the Random Number Generator
-        const rand = Worley.rand(setup.seed[0], setup.seed[1], setup.seed[2], setup.seed[3])
+        const rand = Worley.rand(
+                setup.seed[0],
+                setup.seed[1],
+                setup.seed[2],
+                setup.seed[3]
+            )
             , prerun = setup.prerun
             , crests = setup.crests;
         for(let i = 0; i <= prerun; i ++) rand();
