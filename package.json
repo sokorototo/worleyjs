@@ -1,6 +1,6 @@
 {
   "name": "worleyjs",
-  "version": "1.4.8",
+  "version": "1.5.0",
   "description": "An embedabble and simple Worley Noise generator written in Javascript",
   "main": "build/worley.min.js",
   "exports": {
