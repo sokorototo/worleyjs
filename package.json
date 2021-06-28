@@ -1,11 +1,8 @@
 {
   "name": "worleyjs",
-  "version": "1.4.0",
+  "version": "1.4.5",
   "description": "An embedabble and simple Worley Noise written in Javascript. CPU-Asynchronous",
   "main": "build/worley.min.js",
-  "directories": {
-    "example": "examples"
-  },
   "scripts": {
     "test": "node ./src/worley.test.js",
     "build": "rollup --config ./src/worley.build.js"
