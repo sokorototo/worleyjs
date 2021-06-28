@@ -1,6 +1,6 @@
 {
   "name": "worleyjs",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "An embedabble and simple Worley Noise generator written in Javascript",
   "main": "build/worley.min.js",
   "exports": {
@@ -8,7 +8,6 @@
     "default":"./build/worley.min.js",
     "require": "./build/worley.min.js"
   },
-  "types": "./build/worley.d.ts",
   "scripts": {
     "test": "node ./src/worley.test.js",
     "build": "rollup --config ./src/worley.build.js"
@@ -35,7 +34,9 @@
     "rollup": "^2.50.4",
     "rollup-plugin-uglify": "^6.0.4"
   },
+  "types": "build/worley.d.ts",
   "files": [
+    "build/worley.d.ts",
     "build/worley.min.mjs",
     "build/worley.min.js",
     "README.md"
