@@ -9,7 +9,7 @@
     "require": "./build/worley.min.js"
   },
   "scripts": {
-    "test": "node ./src/worley.test.js",
+    "test": "node ./src/worley.test.mjs",
     "build": "rollup --config ./src/worley.build.js"
   },
   "repository": {
