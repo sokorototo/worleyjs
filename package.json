@@ -5,7 +5,7 @@
   "main": "build/worley.min.js",
   "exports": {
     "import": "./build/worley.min.mjs",
-    "default":"./build/worley.min.js",
+    "default": "./build/worley.min.js",
     "require": "./build/worley.min.js"
   },
   "scripts": {
@@ -30,9 +30,7 @@
   },
   "homepage": "https://github.com/sokorototo/worley-noise#readme",
   "devDependencies": {
-    "pngjs": "^6.0.0",
-    "rollup": "^2.50.4",
-    "rollup-plugin-uglify": "^6.0.4"
+    "pngjs": "^6.0.0"
   },
   "types": "build/worley.d.ts",
   "files": [
@@ -40,5 +38,9 @@
     "build/worley.min.mjs",
     "build/worley.min.js",
     "README.md"
-  ]
+  ],
+  "dependencies": {
+    "rollup": "^1.32.1",
+    "rollup-plugin-uglify": "^6.0.4"
+  }
 }
